@@ -1,5 +1,6 @@
 import numpy as np
 from numpy import ndarray
+from typing import Callable, List
 
 
 def square(x: ndarray) -> ndarray:
@@ -16,7 +17,10 @@ def leaky_relu(x: ndarray) -> ndarray:
     return np.maximum(0.2*x, x)
 
 
-f = 'hi'
-print(f)
-
-square('hi')
+def deriv(func: Callable[[ndarray], ndarray],
+          input_: ndarray,
+          delta: float = 0.001) -> ndarray:
+    '''
+    Evaluates the derivative of a function "func" at ever element in the "input_" array
+    '''
+    return (func(input_ + delta) - func(input_ - delta)) / (2 * delta)
